@@ -17,7 +17,7 @@ class SettingRegistrar
      *
      * @var string
      */
-    protected const MANIFEST_DIR = 'app/UserPreferences';
+    protected const MANIFEST_DIR = 'settings';
 
     /**
      * If the manifests has loaded.
@@ -60,8 +60,8 @@ class SettingRegistrar
      */
     public function loadDeclarations(): void
     {
-        // IF the directory doesn't exists, we won't bulge with reading files.
-        if ($this->filesystem->exists($this->app->basePath('app/UserPreferences'))) {
+        // IF the directory doesn't exist, we won't bulge with reading files.
+        if ($this->filesystem->exists($this->app->basePath('settings'))) {
             $files = $this->filesystem->allFiles($this->manifestsPath);
 
             $this->manifestsLoaded = ! empty($files);

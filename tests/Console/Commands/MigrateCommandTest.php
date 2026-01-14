@@ -373,7 +373,7 @@ class MigrateCommandTest extends BaseTestCase
             'metadata_id'   => 1,
             'settable_type' => "Tests\\\\Dummies\\\\DummyModel",
             'settable_id'   => 1,
-            'value'         => '',
+            'value'         => null,
             'is_enabled'    => true,
             'created_at'    => $now->toDateTimeString(),
             'updated_at'    => $now->toDateTimeString(),
