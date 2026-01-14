@@ -20,21 +20,11 @@ class CreateNewMetadata
 {
     /**
      * CreateNewMetadata constructor.
-     *
-     * @param OutputStyle $output
-     * @param Carbon      $now
      */
-    public function __construct(protected OutputStyle $output, protected Carbon $now)
-    {
-    }
+    public function __construct(protected OutputStyle $output, protected Carbon $now) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
@@ -66,10 +56,6 @@ class CreateNewMetadata
 
     /**
      * Creates the metadata from the declaration.
-     *
-     * @param Declaration $declaration
-     *
-     * @return Metadata
      */
     protected function createMetadata(Declaration $declaration): Metadata
     {
@@ -78,10 +64,6 @@ class CreateNewMetadata
 
     /**
      * Returns a collection of declarations that don't exist in the database.
-     *
-     * @param Data $data
-     *
-     * @return Collection
      */
     protected function declarationsToPersist(Data $data): Collection
     {
@@ -92,32 +74,24 @@ class CreateNewMetadata
 
     /**
      * Fill the settings of the newly created Metadata.
-     *
-     * @param Declaration $declaration
-     * @param Metadata    $metadata
-     * @param Collection  $models
-     * @param Data        $data
-     *
-     * @return int
      */
     protected function fillSettingsFromMetadata(
         Declaration $declaration,
         Metadata $metadata,
         Collection $models,
         Data $data
-    ): int
-    {
+    ): int {
         // If the new metadata is not using "from", we will just create the settings
         // for each user with just simply one query, leaving the hard work to the
         // database engine instead of using this script.
-        if (!$declaration->from) {
+        if (! $declaration->from) {
             return $this->fillSettings($metadata, $models);
         }
 
         // If we're just using a "from", and NOT a procedure, we will copy-paste the
         // value of the old settings and just change the parent metadata id of each
         // row for the one of the new metadata.
-        if (!$declaration->using) {
+        if (! $declaration->using) {
             return $this->copySettings($metadata, $data->metadata->get($declaration->from));
         }
 
@@ -132,10 +106,7 @@ class CreateNewMetadata
     /**
      * Fill the settings for each of the models using settings.
      *
-     * @param Metadata           $metadata
-     * @param Collection|Model[] $models
-     *
-     * @return int
+     * @param  Collection|Model[]  $models
      */
     protected function fillSettings(Metadata $metadata, Collection $models): int
     {
@@ -172,11 +143,6 @@ class CreateNewMetadata
 
     /**
      * Copy the settings for each of the models from the old setting.
-     *
-     * @param Metadata $new
-     * @param Metadata $old
-     *
-     * @return int
      */
     protected function copySettings(Metadata $new, Metadata $old): int
     {
@@ -198,12 +164,6 @@ class CreateNewMetadata
 
     /**
      * Feeds each old setting to a procedure that saves the new setting value.
-     *
-     * @param Declaration $declaration
-     * @param Metadata    $new
-     * @param Metadata    $old
-     *
-     * @return int
      */
     protected function migrateSettings(Declaration $declaration, Metadata $new, Metadata $old): int
     {

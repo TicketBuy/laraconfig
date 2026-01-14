@@ -2,13 +2,13 @@
 
 namespace Tests\Eloquent\Models;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Nabcellent\Laraconfig\Eloquent\Metadata;
 use Nabcellent\Laraconfig\Eloquent\Scopes\AddMetadata;
 use Nabcellent\Laraconfig\Eloquent\Setting;
 use Nabcellent\Laraconfig\SettingsCache;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Orchestra\Testbench\Attributes\WithMigration;
 use Tests\BaseTestCase;
 
@@ -18,6 +18,7 @@ class SettingTest extends BaseTestCase
     use RefreshDatabase;
 
     protected Metadata $metadata;
+
     protected Setting $setting;
 
     protected function setUp(): void
@@ -25,11 +26,11 @@ class SettingTest extends BaseTestCase
         parent::setUp();
 
         $this->metadata = Metadata::make()->forceFill([
-            'name'    => 'foo',
-            'type'    => 'string',
+            'name' => 'foo',
+            'type' => 'string',
             'default' => 'bar',
-            'bag'     => 'users',
-            'group'   => 'default',
+            'bag' => 'users',
+            'group' => 'default',
         ]);
 
         $this->metadata->save();
@@ -43,12 +44,10 @@ class SettingTest extends BaseTestCase
 
     /**
      * Define database migrations.
-     *
-     * @return void
      */
     protected function defineDatabaseMigrations(): void
     {
-//        $this->loadLaravelMigrations();
+        //        $this->loadLaravelMigrations();
         $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations');
     }
 
@@ -59,7 +58,7 @@ class SettingTest extends BaseTestCase
             ->setRawAttributes(['value' => 'quz'])
             ->forceFill([
                 'settable_type' => 'foo',
-                'settable_id'   => 1,
+                'settable_id' => 1,
             ]);
 
         $setting->metadata()->associate($this->metadata);
@@ -258,7 +257,7 @@ class SettingTest extends BaseTestCase
 
         $this->setting->fill([
             'value' => 'foo',
-            'is_enable' => false
+            'is_enable' => false,
         ])->save();
 
         $setting = Setting::find(1);

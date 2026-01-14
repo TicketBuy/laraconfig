@@ -21,24 +21,22 @@ class LaraconfigServiceProvider extends ServiceProvider
      * @var array|string[]
      */
     protected const array MIGRATION_FILES = [
-        __DIR__ . '/../database/migrations/00_00_00_000000_create_user_settings_table.php',
-        __DIR__ . '/../database/migrations/00_00_00_000000_create_user_settings_metadata_table.php',
+        __DIR__.'/../database/migrations/00_00_00_000000_create_user_settings_table.php',
+        __DIR__.'/../database/migrations/00_00_00_000000_create_user_settings_metadata_table.php',
     ];
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/laraconfig.php', 'laraconfig');
 
-        $this->app->singleton(SettingRegistrar::class, static function($app): SettingRegistrar {
+        $this->app->singleton(SettingRegistrar::class, static function ($app): SettingRegistrar {
             return new SettingRegistrar(
                 $app['config'],
-                new Collection(),
-                new Collection(),
+                new Collection,
+                new Collection,
                 $app[Filesystem::class],
                 $app
             );
@@ -47,8 +45,6 @@ class LaraconfigServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -71,14 +67,12 @@ class LaraconfigServiceProvider extends ServiceProvider
 
     /**
      * Returns the migration file destination path name.
-     *
-     * @return Generator
      */
     protected function migrationPathNames(): Generator
     {
         foreach (static::MIGRATION_FILES as $file) {
             yield $file => $this->app->databasePath(
-                'migrations/' . now()->format('Y_m_d_His') . Str::after($file, '00_00_00_000000')
+                'migrations/'.now()->format('Y_m_d_His').Str::after($file, '00_00_00_000000')
             );
         }
     }

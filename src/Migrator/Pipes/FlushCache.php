@@ -18,12 +18,6 @@ class FlushCache
 {
     /**
      * FlushCache constructor.
-     *
-     * @param Application    $app
-     * @param Repository     $config
-     * @param Factory        $factory
-     * @param InputInterface $input
-     * @param OutputStyle    $output
      */
     public function __construct(
         protected Application $app,
@@ -31,29 +25,23 @@ class FlushCache
         protected Factory $factory,
         protected InputInterface $input,
         protected OutputStyle $output,
-    ) {
-    }
+    ) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
         if ($this->input->getOption('flush-cache')) {
             // If is not using a cache, we will not flush anything and bail.
-            if (!$this->config->get('laraconfig.cache.enable', false)) {
+            if (! $this->config->get('laraconfig.cache.enable', false)) {
                 throw new RuntimeException('Cannot flush cache. Laraconfig cache is not enabled.');
             }
 
             $store = $this->config->get('laraconfig.cache.store');
 
             // We will prompt the user if needed, and wait for its confirmation.
-            if ($this->shouldPrompt() && !$this->confirms($store)) {
+            if ($this->shouldPrompt() && ! $this->confirms($store)) {
                 throw new RuntimeException("Flush of the $store cache has been cancelled.");
             }
 
@@ -65,8 +53,6 @@ class FlushCache
 
     /**
      * Check if the user should be prompted to confirm.
-     *
-     * @return bool
      */
     protected function shouldPrompt(): bool
     {
@@ -76,12 +62,8 @@ class FlushCache
 
     /**
      * Confirms if the user
-     *
-     * @param  string|null  $store
-     *
-     * @return bool
      */
-    protected function confirms(string $store = null): bool
+    protected function confirms(?string $store = null): bool
     {
         $store ??= $this->config->get('cache.default');
 

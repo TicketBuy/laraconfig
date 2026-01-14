@@ -87,9 +87,9 @@ class RegistrarTest extends BaseTestCase
 
     public function test_registers_declaration_procedure(): void
     {
-        Setting::name('foo')->using(fn() => true);
+        Setting::name('foo')->using(fn () => true);
 
-        static::assertEquals(fn() => true, $this->registrar->getDeclarations()->get('foo')->using);
+        static::assertEquals(fn () => true, $this->registrar->getDeclarations()->get('foo')->using);
     }
 
     public function test_registers_migrable(): void
@@ -101,9 +101,9 @@ class RegistrarTest extends BaseTestCase
 
     public function test_registers_migrable_with_procedure(): void
     {
-        Setting::name('foo')->from('baz')->using(fn() => true);
+        Setting::name('foo')->from('baz')->using(fn () => true);
 
         static::assertEquals('baz', $this->registrar->getMigrable()->get('foo')->from);
-        static::assertEquals(fn() => true, $this->registrar->getMigrable()->get('foo')->using);
+        static::assertEquals(fn () => true, $this->registrar->getMigrable()->get('foo')->using);
     }
 }

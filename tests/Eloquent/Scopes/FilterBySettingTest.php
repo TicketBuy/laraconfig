@@ -10,6 +10,7 @@ use Nabcellent\Laraconfig\HasConfig;
 use Orchestra\Testbench\Attributes\WithMigration;
 use Tests\BaseTestCase;
 use Tests\Dummies\DummyModel;
+
 #[WithMigration]
 
 class FilterBySettingTest extends BaseTestCase
@@ -18,8 +19,6 @@ class FilterBySettingTest extends BaseTestCase
 
     /**
      * Define database migrations.
-     *
-     * @return void
      */
     protected function defineDatabaseMigrations(): void
     {
@@ -33,11 +32,11 @@ class FilterBySettingTest extends BaseTestCase
             'settable_type' => $model->getMorphClass(),
             'settable_id' => $model->getKey(),
             'metadata_id' => Metadata::forceCreate([
-                'name'  => 'foo',
-                'type'  => 'string',
+                'name' => 'foo',
+                'type' => 'string',
                 'group' => 'default',
-                'bag'   => 'users',
-            ])->id
+                'bag' => 'users',
+            ])->id,
         ]);
 
         Setting::forceCreate([
@@ -45,11 +44,11 @@ class FilterBySettingTest extends BaseTestCase
             'settable_type' => $model->getMorphClass(),
             'settable_id' => $model->getKey(),
             'metadata_id' => Metadata::forceCreate([
-                'name'  => 'baz',
-                'type'  => 'string',
+                'name' => 'baz',
+                'type' => 'string',
                 'group' => 'default',
-                'bag'   => 'users',
-            ])->id
+                'bag' => 'users',
+            ])->id,
         ]);
 
         Setting::forceCreate([
@@ -57,11 +56,11 @@ class FilterBySettingTest extends BaseTestCase
             'settable_type' => $model->getMorphClass(),
             'settable_id' => $model->getKey(),
             'metadata_id' => Metadata::forceCreate([
-                'name'  => 'quz',
-                'type'  => 'string',
+                'name' => 'quz',
+                'type' => 'string',
                 'group' => 'default',
-                'bag'   => 'test-users',
-            ])->id
+                'bag' => 'test-users',
+            ])->id,
         ]);
 
         Setting::forceCreate([
@@ -69,11 +68,11 @@ class FilterBySettingTest extends BaseTestCase
             'settable_type' => $model->getMorphClass(),
             'settable_id' => $model->getKey(),
             'metadata_id' => Metadata::forceCreate([
-                'name'  => 'qux',
-                'type'  => 'string',
+                'name' => 'qux',
+                'type' => 'string',
                 'group' => 'default',
-                'bag'   => 'test-users',
-            ])->id
+                'bag' => 'test-users',
+            ])->id,
         ]);
     }
 
@@ -114,13 +113,16 @@ class FilterBySettingTest extends BaseTestCase
 
     public function test_filters_bags_of_user_on_query(): void
     {
-        $user = new class extends Model {
+        $user = new class extends Model
+        {
             use HasConfig;
+
             protected $attributes = [
                 'name' => 'john',
                 'email' => 'john@email.com',
                 'password' => '123456',
             ];
+
             protected $table = 'users';
 
             public function getMorphClass()
@@ -178,7 +180,7 @@ class FilterBySettingTest extends BaseTestCase
         ]);
 
         Setting::query()->whereKey(1)->update([
-            'value' => 2
+            'value' => 2,
         ]);
 
         static::assertCount(1, DummyModel::whereConfig('foo', '>', 1)->get());

@@ -10,7 +10,7 @@ use Illuminate\Filesystem\Filesystem;
  */
 class PublishCommand extends Command
 {
-    protected const STUB_PATH = __DIR__ . '/../../../stubs/users.php';
+    protected const STUB_PATH = __DIR__.'/../../../stubs/users.php';
 
     /**
      * The console command name.
@@ -38,8 +38,6 @@ class PublishCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {

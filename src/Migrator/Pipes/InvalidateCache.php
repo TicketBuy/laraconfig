@@ -9,7 +9,6 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
-use Nabcellent\Laraconfig\Laraconfig;
 use Nabcellent\Laraconfig\Migrator\Data;
 use Nabcellent\Laraconfig\MorphManySettings;
 use stdClass;
@@ -19,27 +18,16 @@ class InvalidateCache
 {
     /**
      * RemoveOldMetadata constructor.
-     *
-     * @param Repository     $config
-     * @param OutputStyle    $output
-     * @param Factory        $cache
-     * @param InputInterface $input
      */
     public function __construct(
         protected Repository $config,
         protected OutputStyle $output,
         protected Factory $cache,
         protected InputInterface $input
-    ) {
-    }
+    ) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
@@ -55,13 +43,8 @@ class InvalidateCache
         return $next($data);
     }
 
-
     /**
      * Check if we should cycle through models to invalidate their keys.
-     *
-     * @param Data $data
-     *
-     * @return bool
      */
     protected function shouldInvalidateCacheKeys(Data $data): bool
     {
@@ -73,9 +56,7 @@ class InvalidateCache
     /**
      * Forget model cache keys.
      *
-     * @param  Collection|Model[] $models
-     *
-     * @return int
+     * @param  Collection|Model[]  $models
      */
     protected function forgetModelCacheKeys(Data $data): int
     {

@@ -21,26 +21,16 @@ class SettingRegistrar
 
     /**
      * If the manifests has loaded.
-     *
-     * @var bool
      */
     protected bool $manifestsLoaded = false;
 
     /**
      * Manifest path.
-     *
-     * @var string
      */
     protected string $manifestsPath;
 
     /**
      * SettingCollection constructor.
-     *
-     * @param Repository  $config
-     * @param Collection  $declarations
-     * @param Collection  $migrations
-     * @param Filesystem  $filesystem
-     * @param Application $app
      */
     public function __construct(
         protected Repository $config,
@@ -48,15 +38,12 @@ class SettingRegistrar
         protected Collection $migrations,
         protected Filesystem $filesystem,
         protected Application $app
-    )
-    {
+    ) {
         $this->manifestsPath = $this->app->basePath(static::MANIFEST_DIR);
     }
 
     /**
      * Load the declarations from the manifests.
-     *
-     * @return void
      */
     public function loadDeclarations(): void
     {
@@ -74,8 +61,6 @@ class SettingRegistrar
 
     /**
      * Returns the settings collection.
-     *
-     * @return Collection
      */
     public function getDeclarations(): Collection
     {
@@ -90,15 +75,11 @@ class SettingRegistrar
     public function getMigrable(): Collection
     {
         return $this->getDeclarations()
-            ->filter(static fn (Declaration $declaration): bool => null !== $declaration->from);
+            ->filter(static fn (Declaration $declaration): bool => $declaration->from !== null);
     }
 
     /**
      * Creates a new declaration.
-     *
-     * @param  string  $name
-     *
-     * @return Declaration
      */
     public function name(string $name): Declaration
     {

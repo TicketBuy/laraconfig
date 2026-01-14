@@ -19,12 +19,8 @@ class DynamicCasting implements CastsAttributes
     /**
      * Transform the attribute from the underlying model values.
      *
-     * @param Setting|Metadata $model
-     * @param  string          $key
-     * @param  mixed           $value
-     * @param  array           $attributes
+     * @param  Setting|Metadata  $model
      *
-     * @return array|bool|float|int|string|Collection|DateTimeInterface|null
      * @throws JsonException
      */
     public function get(
@@ -33,11 +29,11 @@ class DynamicCasting implements CastsAttributes
         mixed $value,
         array $attributes
     ): array|bool|float|int|string|Collection|DateTimeInterface|null {
-        if (null === $value) {
+        if ($value === null) {
             return null;
         }
 
-        if ($model instanceof Setting && !isset($attributes['type'], $attributes['metadata_id'])) {
+        if ($model instanceof Setting && ! isset($attributes['type'], $attributes['metadata_id'])) {
             return $value;
         }
 
@@ -55,12 +51,8 @@ class DynamicCasting implements CastsAttributes
     /**
      * Transform the attribute to its underlying model values.
      *
-     * @param Setting|Metadata $model
-     * @param  string          $key
-     * @param  mixed           $value
-     * @param  array           $attributes
+     * @param  Setting|Metadata  $model
      *
-     * @return null|array|int|bool|float|string|Collection|DateTimeInterface
      * @throws JsonException
      */
     public function set(
@@ -69,11 +61,11 @@ class DynamicCasting implements CastsAttributes
         mixed $value,
         array $attributes
     ): null|array|int|bool|float|string|Collection|DateTimeInterface {
-        if (null === $value) {
+        if ($value === null) {
             return null;
         }
 
-        if ($model instanceof Setting && !isset($attributes['type'], $attributes['metadata_id'])) {
+        if ($model instanceof Setting && ! isset($attributes['type'], $attributes['metadata_id'])) {
             return $value;
         }
 

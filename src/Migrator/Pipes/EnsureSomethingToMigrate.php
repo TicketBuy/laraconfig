@@ -9,17 +9,10 @@ use RuntimeException;
 
 class EnsureSomethingToMigrate
 {
-    public function __construct(protected OutputStyle $output)
-    {
-    }
+    public function __construct(protected OutputStyle $output) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {

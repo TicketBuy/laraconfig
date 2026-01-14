@@ -8,12 +8,10 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up(): void
     {
-        Schema::create('user_settings_metadata', function(Blueprint $table): void {
+        Schema::create('user_settings_metadata', function (Blueprint $table): void {
             $table->id();
 
             $table->string('name')->unique();
@@ -30,8 +28,6 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down(): void
     {

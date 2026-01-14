@@ -11,7 +11,8 @@ class DummyModelAdminBag extends Model
 
     protected $table = 'users';
 
-    protected function getSettingBags(): string|array {
+    protected function getSettingBags(): string|array
+    {
         return ['admins'];
     }
 }

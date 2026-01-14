@@ -9,11 +9,11 @@ class PublishCommandTest extends BaseTestCase
 {
     protected Filesystem $filesystem;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        $this->filesystem = new Filesystem();
+        $this->filesystem = new Filesystem;
     }
 
     public function test_adds_sample_file_into_settings(): void
@@ -56,12 +56,12 @@ class PublishCommandTest extends BaseTestCase
         sleep(10);
 
         static::assertFileEquals(
-            __DIR__ . '/../../../stubs/users.php',
+            __DIR__.'/../../../stubs/users.php',
             $this->app->basePath('settings/users.php')
         );
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->filesystem->deleteDirectory($this->app->basePath('settings'));
 

@@ -9,17 +9,14 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property-read int $id
- *
  * @property-read string                                             $name
  * @property-read string                                             $type
  * @property-read mixed                                              $default
  * @property-read string                                             $bag
  * @property-read string                                             $group
  * @property-read bool                                               $is_enabled
- *
  * @property-read Carbon                         $updated_at
  * @property-read Carbon                         $created_at
- *
  * @property-read Collection|Setting[] $settings
  *
  * @internal
@@ -28,11 +25,17 @@ class Metadata extends Model
 {
     /* Just a bunch of constant to check the type of the declaration */
     public const string TYPE_ARRAY = 'array';
+
     public const string TYPE_COLLECTION = 'collection';
+
     public const string TYPE_DATETIME = 'datetime';
+
     public const string TYPE_STRING = 'string';
+
     public const string TYPE_INTEGER = 'integer';
+
     public const string TYPE_BOOLEAN = 'boolean';
+
     public const string TYPE_FLOAT = 'float';
 
     /**
@@ -49,7 +52,7 @@ class Metadata extends Model
      */
     protected $casts = [
         'default' => Casts\DynamicCasting::class,
-        'is_enabled' => 'boolean'
+        'is_enabled' => 'boolean',
     ];
 
     /**

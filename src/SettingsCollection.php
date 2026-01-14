@@ -3,18 +3,17 @@
 namespace Nabcellent\Laraconfig;
 
 use Exception;
-use Nabcellent\Laraconfig\Eloquent\Setting;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Enumerable;
 use Illuminate\Support\Traits\EnumeratesValues;
+use Nabcellent\Laraconfig\Eloquent\Setting;
 use RuntimeException;
 
 /**
  * Class SettingsCollection
  *
- * @package Nabcellent\Laraconfig
  *
  * @method Setting get(string $name, mixed $default = null)
  */
@@ -23,21 +22,18 @@ class SettingsCollection extends Collection
     use EnumeratesValues {
         __get as __dynamicGet;
     }
+
     /**
      * The cache helper instance.
      *
      * We will set it here since we need to keep an eye once this object instance
      * is garbage collected. Once done, a `__destruct()` call will be fired, and
      * that is when we will make the cache store regenerate the settings there.
-     *
-     * @var SettingsCache|null
      */
     public ?SettingsCache $cache = null;
 
     /**
      * If the settings should be regenerated on exit.
-     *
-     * @var bool
      */
     public bool $regeneratesOnExit = false;
 
@@ -56,7 +52,6 @@ class SettingsCollection extends Collection
      *
      * @param  string  $key
      * @param  mixed|null  $default
-     *
      * @return Carbon|\Illuminate\Support\Collection|array|string|int|float|bool|null
      */
     public function value($key, $default = null): Carbon|Collection|array|string|int|float|bool|null
@@ -72,11 +67,6 @@ class SettingsCollection extends Collection
 
     /**
      * Checks if the value of a setting is the same as the one issued.
-     *
-     * @param  string  $name
-     * @param  mixed  $value
-     *
-     * @return bool
      */
     public function is(string $name, mixed $value): bool
     {
@@ -85,12 +75,6 @@ class SettingsCollection extends Collection
 
     /**
      * Sets one or multiple setting values.
-     *
-     * @param  string|array  $name
-     * @param  mixed  $value
-     * @param  bool  $force
-     *
-     * @return void
      */
     public function set(string|array $name, mixed $value = null, bool $force = true): void
     {
@@ -110,10 +94,6 @@ class SettingsCollection extends Collection
 
     /**
      * Sets the default value of a given setting.
-     *
-     * @param  string  $name
-     *
-     * @return void
      */
     public function setDefault(string $name): void
     {
@@ -122,22 +102,14 @@ class SettingsCollection extends Collection
 
     /**
      * Checks if the setting is using a null value.
-     *
-     * @param  string  $name
-     *
-     * @return bool
      */
     public function isNull(string $name): bool
     {
-        return null === $this->value($name);
+        return $this->value($name) === null;
     }
 
     /**
      * Checks if the Setting is enabled.
-     *
-     * @param  string  $name
-     *
-     * @return bool
      */
     public function isEnabled(string $name): bool
     {
@@ -146,10 +118,6 @@ class SettingsCollection extends Collection
 
     /**
      * Checks if the Setting is disabled.
-     *
-     * @param  string  $name
-     *
-     * @return bool
      */
     public function isDisabled(string $name): bool
     {
@@ -158,10 +126,6 @@ class SettingsCollection extends Collection
 
     /**
      * Disables a Setting.
-     *
-     * @param  string  $name
-     *
-     * @return void
      */
     public function disable(string $name): void
     {
@@ -170,10 +134,6 @@ class SettingsCollection extends Collection
 
     /**
      * Enables a Setting.
-     *
-     * @param  string  $name
-     *
-     * @return void
      */
     public function enable(string $name): void
     {
@@ -182,11 +142,6 @@ class SettingsCollection extends Collection
 
     /**
      * Sets a value into a setting if it exists and it's enabled.
-     *
-     * @param  string|array  $name
-     * @param  mixed  $value
-     *
-     * @return void
      */
     public function setIfEnabled(string|array $name, mixed $value = null): void
     {
@@ -197,7 +152,6 @@ class SettingsCollection extends Collection
      * Returns only the models from the collection with the specified keys.
      *
      * @param  mixed  $keys
-     * @return static
      */
     public function only($keys): static
     {
@@ -224,7 +178,6 @@ class SettingsCollection extends Collection
      * Returns all models in the collection except the models with specified keys.
      *
      * @param  mixed  $keys
-     * @return static
      */
     public function except($keys): static
     {
@@ -245,8 +198,6 @@ class SettingsCollection extends Collection
 
     /**
      * Invalidates the cache of the setting's user.
-     *
-     * @return void
      */
     public function invalidate(): void
     {
@@ -255,8 +206,6 @@ class SettingsCollection extends Collection
 
     /**
      * Invalidate the settings cache if it has not been done before.
-     *
-     * @return void
      */
     public function invalidateIfNotInvalidated(): void
     {
@@ -265,10 +214,6 @@ class SettingsCollection extends Collection
 
     /**
      * Saves the collection of settings in the cache.
-     *
-     * @param  bool  $force
-     *
-     * @return void
      */
     public function regenerate(bool $force = false): void
     {
@@ -289,9 +234,6 @@ class SettingsCollection extends Collection
 
     /**
      * Dynamically sets a value.
-     *
-     * @param  string  $name
-     * @param  mixed $value
      */
     public function __set(string $name, mixed $value): void
     {
@@ -300,10 +242,6 @@ class SettingsCollection extends Collection
 
     /**
      * Check if a given property exists.
-     *
-     * @param  string  $name
-     *
-     * @return bool
      */
     public function __isset(string $name): bool
     {
@@ -314,7 +252,6 @@ class SettingsCollection extends Collection
      * Dynamically access collection proxies.
      *
      * @param  string  $key
-     * @return mixed
      *
      * @throws Exception
      */

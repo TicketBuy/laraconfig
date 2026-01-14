@@ -18,10 +18,7 @@ class AddMetadata implements Scope
     /**
      * Apply the scope to a given Eloquent query builder.
      *
-     * @param Builder         $builder
-     * @param Model|HasConfig $model
-     *
-     * @return void
+     * @param  Model|HasConfig  $model
      */
     public function apply(Builder $builder, Model $model): void
     {
@@ -51,7 +48,7 @@ class AddMetadata implements Scope
      */
     protected static function getColumns(): array
     {
-        $model = new Metadata();
+        $model = new Metadata;
 
         foreach ($columns = ['name', 'type', 'bag', 'default', 'group'] as $key => $column) {
             $columns[$key] = "{$model->qualifyColumn($column)} as $column";

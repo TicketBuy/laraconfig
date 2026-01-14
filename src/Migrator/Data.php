@@ -36,15 +36,11 @@ class Data
 
     /**
      * If the cache should be invalidated on settings changes.
-     *
-     * @var bool
      */
     public bool $invalidateCache = false;
 
     /**
      * Invalidate the cache through the models instead of the settings.
-     *
-     * @var bool
      */
     public bool $useModels = false;
 
@@ -55,6 +51,6 @@ class Data
      */
     public function __construct()
     {
-        $this->models = new Collection();
+        $this->models = new Collection;
     }
 }

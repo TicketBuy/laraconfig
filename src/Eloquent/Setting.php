@@ -12,18 +12,14 @@ use Nabcellent\Laraconfig\SettingsCache;
 
 /**
  * @property-read Model                                              $user
- *
  * @property-read int                                                $id
- *
- * @property null|array|bool|string|int|float|Collection|Carbon      $value
- * @property boolean                                                 $is_enabled
- *
+ * @property null|array|bool|string|int|float|Collection|Carbon $value
+ * @property bool $is_enabled
  * @property-read string                                             $name // Added by the "add-metadata" global scope.
  * @property-read string                                             $type // Added by the "add-metadata" global scope.
  * @property-read Carbon|Collection|array|string|int|float|bool|null $default // Added by the "add-metadata" global scope.
  * @property-read string                                             $group // Added by the "add-metadata" global scope.
  * @property-read string                                             $bag // Added by the "add-metadata" global scope.
- *
  * @property-read Metadata                                           $metadata
  */
 class Setting extends Model
@@ -41,8 +37,8 @@ class Setting extends Model
      * @var array
      */
     protected $casts = [
-        'value'      => Casts\DynamicCasting::class,
-        'default'    => Casts\DynamicCasting::class,
+        'value' => Casts\DynamicCasting::class,
+        'default' => Casts\DynamicCasting::class,
         'is_enabled' => 'boolean',
     ];
 
@@ -62,22 +58,16 @@ class Setting extends Model
 
     /**
      * Parent bags used for scoping.
-     *
-     * @var array|null
      */
     public ?array $parentBags = null;
 
     /**
      * Settings cache repository.
-     *
-     * @var SettingsCache|null
      */
     public ?SettingsCache $cache = null;
 
     /**
      * Bootstrap the model and its traits.
-     *
-     * @return void
      */
     protected static function boot(): void
     {
@@ -93,18 +83,14 @@ class Setting extends Model
 
     /**
      * Perform any actions required after the model boots.
-     *
-     * @return void
      */
     protected static function booted(): void
     {
-        static::addGlobalScope(new Scopes\AddMetadata());
+        static::addGlobalScope(new Scopes\AddMetadata);
     }
 
     /**
      * The parent metadata.
-     *
-     * @return BelongsTo
      */
     public function metadata(): BelongsTo
     {
@@ -113,8 +99,6 @@ class Setting extends Model
 
     /**
      * The user this settings belongs to.
-     *
-     * @return MorphTo
      */
     public function user(): MorphTo
     {
@@ -124,7 +108,6 @@ class Setting extends Model
     /**
      * Fills the settings data from a Metadata model instance.
      *
-     * @param Metadata $metadata
      *
      * @return $this
      */
@@ -138,9 +121,7 @@ class Setting extends Model
     /**
      * Sets a value into the setting and saves it immediately.
      *
-     * @param  mixed  $value
      * @param  bool  $force  When "false", it will be only set if its enabled.
-     *
      * @return bool "true" on success, or "false" if it's disabled.
      */
     public function set(mixed $value, bool $force = true): bool
@@ -155,7 +136,6 @@ class Setting extends Model
     /**
      * Sets a value into the setting if it's enabled.
      *
-     * @param  mixed  $value
      *
      * @return bool "true" on success, or "false" if it's disabled.
      */
@@ -166,13 +146,11 @@ class Setting extends Model
 
     /**
      * Reverts back the setting to its default value.
-     *
-     * @return void
      */
     public function setDefault(): void
     {
         // We will retrieve the default value if it was not retrieved.
-        if (!isset($this->attributes['default'])) {
+        if (! isset($this->attributes['default'])) {
             // By setting the same attribute as original we can skip saving it.
             // We will also use the Query Builder directly to avoid the value
             // being casted, as we need it raw, and let model be set as is.
@@ -185,10 +163,6 @@ class Setting extends Model
 
     /**
      * Enables the setting.
-     *
-     * @param  bool  $enable
-     *
-     * @return void
      */
     public function enable(bool $enable = true): void
     {
@@ -197,8 +171,6 @@ class Setting extends Model
 
     /**
      * Disables the setting.
-     *
-     * @return void
      */
     public function disable(): void
     {
@@ -207,8 +179,6 @@ class Setting extends Model
 
     /**
      * Check if the current setting is enabled.
-     *
-     * @return bool
      */
     public function isEnabled(): bool
     {
@@ -217,18 +187,14 @@ class Setting extends Model
 
     /**
      * Check if the current settings is disabled.
-     *
-     * @return bool
      */
     public function isDisabled(): bool
     {
-        return !$this->isEnabled();
+        return ! $this->isEnabled();
     }
 
     /**
      * Forcefully invalidates the cache from this setting.
-     *
-     * @return void
      */
     public function invalidateCache(): void
     {

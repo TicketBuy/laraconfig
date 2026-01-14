@@ -23,22 +23,13 @@ class FindModelsWithSettings
     /**
      * FindModelsWithSettings constructor.
      *
-     * @param Application $app
-     * @param Filesystem  $filesystem
      *
      * @return void
      */
-    public function __construct(protected Application $app, protected Filesystem $filesystem)
-    {
-    }
+    public function __construct(protected Application $app, protected Filesystem $filesystem) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
@@ -62,8 +53,6 @@ class FindModelsWithSettings
 
     /**
      * Finds all models from the project.
-     *
-     * @return Generator
      */
     protected function findModelsWithSettings(): Generator
     {

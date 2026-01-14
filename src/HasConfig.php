@@ -5,6 +5,7 @@ namespace Nabcellent\Laraconfig;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Nabcellent\Laraconfig\Eloquent\Setting;
+
 use function method_exists;
 
 /**
@@ -17,8 +18,6 @@ trait HasConfig
 {
     /**
      * Returns the settings relationship.
-     *
-     * @return MorphManySettings
      */
     public function settings(): MorphManySettings
     {
@@ -35,17 +34,15 @@ trait HasConfig
 
     /**
      * Boot the current trait.
-     *
-     * @return void
      */
     protected static function bootHasConfig(): void
     {
-        static::addGlobalScope(new Eloquent\Scopes\WhereConfig());
+        static::addGlobalScope(new Eloquent\Scopes\WhereConfig);
 
         static::created(
             static function (Model $model): void {
                 // If there is no method, or there is and returns true, we will initialize.
-                if (!method_exists($model, 'shouldInitializeConfig') || $model->shouldInitializeConfig()) {
+                if (! method_exists($model, 'shouldInitializeConfig') || $model->shouldInitializeConfig()) {
                     $model->settings()->initialize();
                 }
             }
@@ -54,7 +51,7 @@ trait HasConfig
         static::deleting(
             static function (Model $model): void {
                 // Bye settings on delete, or force-delete.
-                if (!method_exists($model, 'isForceDeleting') || $model->isForceDeleting()) {
+                if (! method_exists($model, 'isForceDeleting') || $model->isForceDeleting()) {
                     $model->settings()->withoutGlobalScopes()->delete();
                 }
             }

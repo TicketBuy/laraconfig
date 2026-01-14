@@ -3,12 +3,12 @@
 namespace Nabcellent\Laraconfig\Migrator\Pipes;
 
 use Closure;
+use Illuminate\Console\OutputStyle;
+use Illuminate\Support\Collection;
 use Nabcellent\Laraconfig\Eloquent\Metadata;
 use Nabcellent\Laraconfig\Eloquent\Setting;
 use Nabcellent\Laraconfig\Migrator\Data;
 use Nabcellent\Laraconfig\Registrar\Declaration;
-use Illuminate\Console\OutputStyle;
-use Illuminate\Support\Collection;
 
 /**
  * @internal
@@ -17,20 +17,11 @@ class UpdateExistingMetadata
 {
     /**
      * UpdateExistingMetadata constructor.
-     *
-     * @param OutputStyle $output
      */
-    public function __construct(protected OutputStyle $output)
-    {
-    }
+    public function __construct(protected OutputStyle $output) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
@@ -55,7 +46,6 @@ class UpdateExistingMetadata
     /**
      * Returns a collection of metadata that is already present in the.
      *
-     * @param Data $data
      *
      * @return Collection|Declaration[]
      */
@@ -79,11 +69,6 @@ class UpdateExistingMetadata
 
     /**
      * Updates each existing metadata from its declaration of the same name.
-     *
-     * @param Data        $data
-     * @param Declaration $declaration
-     *
-     * @return int
      */
     protected function updateMetadata(Data $data, Declaration $declaration): int
     {
@@ -91,11 +76,11 @@ class UpdateExistingMetadata
         $metadata = $data->metadata->get($declaration->name);
 
         $metadata->forceFill([
-            'type'       => $declaration->type,
-            'default'    => $declaration->default,
-            'bag'        => $declaration->bag,
+            'type' => $declaration->type,
+            'default' => $declaration->default,
+            'bag' => $declaration->bag,
             'is_enabled' => $declaration->enabled,
-            'group'      => $declaration->group,
+            'group' => $declaration->group,
         ]);
 
         $metadata->save();
@@ -112,11 +97,6 @@ class UpdateExistingMetadata
 
     /**
      * Update each child setting (of each user) using the declaration procedure.
-     *
-     * @param Declaration $declaration
-     * @param Metadata    $metadata
-     *
-     * @return int
      */
     protected function updateSettingValues(Declaration $declaration, Metadata $metadata): int
     {

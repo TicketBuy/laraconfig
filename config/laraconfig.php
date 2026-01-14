@@ -32,5 +32,5 @@ return [
         'duration' => 60 * 60 * 3, // Store the settings for 3 hours
         'prefix' => 'laraconfig',
         'automatic' => true, // Regenerate the cache before garbage collection.
-    ]
+    ],
 ];

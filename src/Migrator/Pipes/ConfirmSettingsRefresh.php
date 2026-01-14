@@ -19,25 +19,15 @@ class ConfirmSettingsRefresh
 {
     /**
      * ConfirmSettingsToDelete constructor.
-     *
-     * @param Application    $app
-     * @param OutputStyle    $output
-     * @param InputInterface $input
      */
     public function __construct(
         protected Application $app,
         protected OutputStyle $output,
         protected InputInterface $input
-    ) {
-    }
+    ) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
@@ -51,7 +41,7 @@ class ConfirmSettingsRefresh
             Metadata::query()->truncate();
 
             // Reset the metadata collection since there is nothing left.
-            $data->metadata = new Collection();
+            $data->metadata = new Collection;
         }
 
         return $next($data);
@@ -59,19 +49,15 @@ class ConfirmSettingsRefresh
 
     /**
      * Returns if there the settings data will be refreshed and the developer has rejected that.
-     *
-     * @return bool
      */
     protected function rejectedRefreshOnProduction(): bool
     {
         return $this->shouldPrompt()
-            && !$this->output->confirm('ALL settings will be deleted completely. Proceed?');
+            && ! $this->output->confirm('ALL settings will be deleted completely. Proceed?');
     }
 
     /**
      * Check if the developer should be prompted for refreshing the settings tables.
-     *
-     * @return bool
      */
     protected function shouldPrompt(): bool
     {

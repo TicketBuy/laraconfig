@@ -10,11 +10,6 @@ class WhereConfig implements Scope
 {
     /**
      * Apply the scope to a given Eloquent query builder.
-     *
-     * @param Builder $builder
-     * @param Model   $model
-     *
-     * @return void
      */
     public function apply(Builder $builder, Model $model): void
     {
@@ -23,10 +18,6 @@ class WhereConfig implements Scope
 
     /**
      * Extend the query builder with the needed functions.
-     *
-     * @param Builder $builder
-     *
-     * @return void
      */
     public function extend(Builder $builder): void
     {
@@ -37,18 +28,12 @@ class WhereConfig implements Scope
     /**
      * Filters the user by the config value.
      *
-     * @param Builder       $builder
-     * @param  string|array $name
-     * @param  string|null  $operator
-     * @param  null         $value
-     * @param  string       $boolean
-     *
-     * @return Builder
+     * @param  null  $value
      */
     public static function whereConfig(
         Builder $builder,
         string|array $name,
-        string $operator = null,
+        ?string $operator = null,
         $value = null,
         string $boolean = 'and'
     ): Builder {
@@ -84,17 +69,12 @@ class WhereConfig implements Scope
     /**
      * Filters the user by the config value.
      *
-     * @param Builder       $builder
-     * @param  string|array $name
-     * @param  string|null  $operator
-     * @param  null         $value
-     *
-     * @return Builder
+     * @param  null  $value
      */
     public static function orWhereConfig(
         Builder $builder,
         string|array $name,
-        string $operator = null,
+        ?string $operator = null,
         $value = null,
     ): Builder {
         return static::whereConfig($builder, $name, $operator, $value, 'or');

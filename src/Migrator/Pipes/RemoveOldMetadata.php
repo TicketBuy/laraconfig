@@ -15,20 +15,11 @@ class RemoveOldMetadata
 {
     /**
      * RemoveOldMetadata constructor.
-     *
-     * @param OutputStyle $output
      */
-    public function __construct(protected OutputStyle $output)
-    {
-    }
+    public function __construct(protected OutputStyle $output) {}
 
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
@@ -52,7 +43,6 @@ class RemoveOldMetadata
     /**
      * Returns a collection of Metadata not present in the manifest.
      *
-     * @param Data $data
      *
      * @return Collection|Metadata[]
      */

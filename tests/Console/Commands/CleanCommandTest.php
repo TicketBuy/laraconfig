@@ -15,15 +15,15 @@ class CleanCommandTest extends BaseTestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         DB::table('users')->insert([
             [
-                'name'       => 'charlie',
-                'email'      => 'charlie@email.com',
-                'password'   => '123456',
+                'name' => 'charlie',
+                'email' => 'charlie@email.com',
+                'password' => '123456',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -32,50 +32,48 @@ class CleanCommandTest extends BaseTestCase
 
     /**
      * Define database migrations.
-     *
-     * @return void
      */
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../../../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../../../database/migrations');
     }
 
     public function test_cleans_orphaned_settings(): void
     {
         Metadata::forceCreate([
-            'name'    => 'foo',
-            'type'    => 'string',
+            'name' => 'foo',
+            'type' => 'string',
             'default' => 'foo-value',
-            'bag'     => 'users',
-            'group'   => 'default',
+            'bag' => 'users',
+            'group' => 'default',
         ]);
 
         // Not orphaned.
         Setting::forceCreate([
-            'metadata_id'   => 1,
+            'metadata_id' => 1,
             'settable_type' => DummyModel::class,
-            'settable_id'   => 1,
+            'settable_id' => 1,
         ]);
 
         // Orphaned metadata, on user.
         Setting::forceCreate([
-            'metadata_id'   => 99,
+            'metadata_id' => 99,
             'settable_type' => DummyModel::class,
-            'settable_id'   => 1,
+            'settable_id' => 1,
         ]);
 
         // Orphaned user, on metadata
         Setting::forceCreate([
-            'metadata_id'   => 1,
+            'metadata_id' => 1,
             'settable_type' => DummyModel::class,
-            'settable_id'   => 99,
+            'settable_id' => 99,
         ]);
 
         // Totally orphaned
         Setting::forceCreate([
-            'metadata_id'   => 99,
+            'metadata_id' => 99,
             'settable_type' => DummyModel::class,
-            'settable_id'   => 99,
+            'settable_id' => 99,
         ]);
 
         $this->artisan('settings:clean')

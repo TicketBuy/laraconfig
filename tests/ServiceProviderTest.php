@@ -32,7 +32,7 @@ class ServiceProviderTest extends BaseTestCase
 
     public function test_uses_config(): void
     {
-        static::assertEquals(include(__DIR__.'/../config/laraconfig.php'), config('laraconfig'));
+        static::assertEquals(include (__DIR__.'/../config/laraconfig.php'), config('laraconfig'));
     }
 
     public function test_publishes_config(): void
@@ -45,7 +45,7 @@ class ServiceProviderTest extends BaseTestCase
             ]
         )->execute();
 
-        static::assertFileEquals(base_path('config/laraconfig.php'), __DIR__ . '/../config/laraconfig.php');
+        static::assertFileEquals(base_path('config/laraconfig.php'), __DIR__.'/../config/laraconfig.php');
     }
 
     public function test_publishes_migrations(): void

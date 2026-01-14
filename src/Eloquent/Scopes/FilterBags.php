@@ -10,20 +10,11 @@ class FilterBags implements Scope
 {
     /**
      * FilterBags constructor.
-     *
-     * @param  array  $bags
      */
-    public function __construct(protected array $bags)
-    {
-    }
+    public function __construct(protected array $bags) {}
 
     /**
      * Apply the scope to a given Eloquent query builder.
-     *
-     * @param Builder $builder
-     * @param Model   $model
-     *
-     * @return void
      */
     public function apply(Builder $builder, Model $model): void
     {

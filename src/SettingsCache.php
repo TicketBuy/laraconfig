@@ -15,38 +15,27 @@ class SettingsCache implements Serializable
 {
     /**
      * The collection of settings to persist.
-     *
-     * @var SettingsCollection|null
      */
     protected ?SettingsCollection $settings = null;
 
     /**
      * If the cache was already invalidated (to not do it again).
-     *
-     * @var Carbon|null
      */
     protected ?Carbon $invalidatedAt = null;
 
     /**
      * SettingsCache constructor.
-     *
-     * @param Repository $cache
-     * @param  string    $key
-     * @param  int       $ttl
-     * @param  bool      $automaticRegeneration
      */
     public function __construct(
         protected Repository $cache,
         protected string $key,
         protected int $ttl,
         protected bool $automaticRegeneration = false
-    ) {
-    }
+    ) {}
 
     /**
      * Set the settings collection to persist.
      *
-     * @param SettingsCollection $settings
      *
      * @return SettingsCache
      */
@@ -60,7 +49,6 @@ class SettingsCache implements Serializable
     /**
      * Returns the collection in the cache, if it exists.
      *
-     * @return Collection|null
      * @throws InvalidArgumentException
      */
     public function retrieve(): ?Collection
@@ -71,13 +59,12 @@ class SettingsCache implements Serializable
     /**
      * Check if the cache of the settings not is older these settings.
      *
-     * @return bool
      * @throws InvalidArgumentException
      */
     public function shouldRegenerate(): bool
     {
         // If the time doesn't exist in the cache then we can safely store.
-        if (!($time = $this->cache->get("$this->key:time"))) {
+        if (! ($time = $this->cache->get("$this->key:time"))) {
             return true;
         }
 
@@ -88,9 +75,7 @@ class SettingsCache implements Serializable
     /**
      * Saves the collection of settings in the cache.
      *
-     * @param bool $force
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     public function regenerate(bool $force = false): void
@@ -105,8 +90,6 @@ class SettingsCache implements Serializable
 
     /**
      * Invalidates the cache of the setting's user.
-     *
-     * @return void
      */
     public function invalidate(): void
     {
@@ -119,8 +102,6 @@ class SettingsCache implements Serializable
 
     /**
      * Invalidate the settings cache if it has not been done before.
-     *
-     * @return void
      */
     public function invalidateIfNotInvalidated(): void
     {
@@ -131,8 +112,6 @@ class SettingsCache implements Serializable
 
     /**
      * Marks the settings cache to regenerate on exit.
-     *
-     * @return void
      */
     public function regenerateOnExit(): void
     {
@@ -142,8 +121,6 @@ class SettingsCache implements Serializable
 
     /**
      * representation of object.
-     *
-     * @return array
      */
     public function __serialize(): array
     {
@@ -154,8 +131,6 @@ class SettingsCache implements Serializable
      * Constructs the object.
      *
      * @param  string  $data
-     *
-     * @return void
      */
     public function __unserialize($data): void
     {
@@ -164,8 +139,6 @@ class SettingsCache implements Serializable
 
     /**
      * String representation of object.
-     *
-     * @return string|null
      */
     public function serialize(): ?string
     {
@@ -174,10 +147,6 @@ class SettingsCache implements Serializable
 
     /**
      * Constructs the object.
-     *
-     * @param string $data
-     *
-     * @return void
      */
     public function unserialize(string $data): void
     {
@@ -186,12 +155,6 @@ class SettingsCache implements Serializable
 
     /**
      * Creates a new instance.
-     *
-     * @param Config  $config
-     * @param Factory $factory
-     * @param Model   $model
-     *
-     * @return static
      */
     public static function make(Config $config, Factory $factory, Model $model): static
     {

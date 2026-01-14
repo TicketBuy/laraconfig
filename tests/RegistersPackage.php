@@ -12,8 +12,6 @@ trait RegistersPackage
      * Get package providers.
      *
      * @param  Application  $app
-     *
-     * @return array
      */
     protected function getPackageProviders($app): array
     {
@@ -26,7 +24,6 @@ trait RegistersPackage
      * Override application aliases.
      *
      * @param  Application  $app
-     *
      * @return array
      */
     protected function getPackageAliases($app)

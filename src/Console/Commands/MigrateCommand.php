@@ -33,9 +33,6 @@ class MigrateCommand extends Command
 
     /**
      * MigrateCommand constructor.
-     *
-     * @param Migrator $migrator
-     * @param Data     $data
      */
     public function __construct(protected Migrator $migrator, protected Data $data)
     {
@@ -44,8 +41,6 @@ class MigrateCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
@@ -57,6 +52,7 @@ class MigrateCommand extends Command
             $this->migrator->send($this->data)->thenReturn();
         } catch (RuntimeException $exception) {
             $this->error($exception->getMessage());
+
             return 1;
         }
 

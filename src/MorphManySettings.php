@@ -21,26 +21,16 @@ class MorphManySettings extends MorphMany
 {
     /**
      * Bags of the model.
-     *
-     * @var array
      */
     protected array $bags;
 
     /**
      * The settings cache helper.
-     *
-     * @var SettingsCache|null
      */
     protected ?SettingsCache $cache = null;
 
     /**
      * MorphManySettings constructor.
-     *
-     * @param Builder $query
-     * @param Model   $parent
-     * @param  string $type
-     * @param  string $id
-     * @param  string $localKey
      */
     public function __construct(Builder $query, Model $parent, string $type, string $id, string $localKey)
     {
@@ -51,10 +41,6 @@ class MorphManySettings extends MorphMany
 
     /**
      * Prepares the relation instance to be handled.
-     *
-     * @param Model $parent
-     *
-     * @return void
      */
     public function windUp(Model $parent): void
     {
@@ -76,10 +62,7 @@ class MorphManySettings extends MorphMany
     /**
      * Get the relationship query.
      *
-     * @param Builder      $query
-     * @param Builder      $parentQuery
-     * @param  array|mixed $columns
-     * @return Builder
+     * @param  array|mixed  $columns
      */
     public function getRelationExistenceQuery(Builder $query, Builder $parentQuery, $columns = ['*']): Builder
     {
@@ -93,12 +76,6 @@ class MorphManySettings extends MorphMany
 
     /**
      * Generates the key for the model to save into the cache.
-     *
-     * @param  string  $prefix
-     * @param  string  $morphClass
-     * @param  string|int  $key
-     *
-     * @return string
      */
     public static function generateKeyForModel(string $prefix, string $morphClass, string|int $key): string
     {
@@ -107,14 +84,10 @@ class MorphManySettings extends MorphMany
 
     /**
      * Initializes the Settings Repository for a given user.
-     *
-     * @param  bool  $force
-     *
-     * @return void
      */
     public function initialize(bool $force = false): void
     {
-        if (!$force && $this->isInitialized()) {
+        if (! $force && $this->isInitialized()) {
             return;
         }
 
@@ -125,12 +98,12 @@ class MorphManySettings extends MorphMany
         $this->cache?->invalidate();
 
         // Add the collection to the relation, avoiding retrieving them again later.
-        $this->getParent()->setRelation('settings', $settings = new SettingsCollection());
+        $this->getParent()->setRelation('settings', $settings = new SettingsCollection);
 
         foreach (Metadata::query()->lazyById(column: 'id') as $metadatum) {
             $setting = $query->make()->forceFill([
                 'metadata_id' => $metadatum->getKey(),
-                'value' => $metadatum->default
+                'value' => $metadatum->default,
             ]);
 
             $setting->saveQuietly();
@@ -147,8 +120,6 @@ class MorphManySettings extends MorphMany
 
     /**
      * Checks if the user settings has been initialized.
-     *
-     * @return bool
      */
     public function isInitialized(): bool
     {
@@ -157,10 +128,6 @@ class MorphManySettings extends MorphMany
 
     /**
      * Adds a cache instance to the setting models, if there is one.
-     *
-     * @param EloquentCollection $settings
-     *
-     * @return EloquentCollection
      */
     protected function prepareCollection(EloquentCollection $settings): EloquentCollection
     {
@@ -196,8 +163,6 @@ class MorphManySettings extends MorphMany
 
     /**
      * Returns all the bags being used by the model.
-     *
-     * @return array
      */
     public function bags(): array
     {

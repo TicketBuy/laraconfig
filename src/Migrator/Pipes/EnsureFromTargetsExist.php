@@ -13,11 +13,6 @@ class EnsureFromTargetsExist
 {
     /**
      * Handles the Settings migration.
-     *
-     * @param Data    $data
-     * @param Closure $next
-     *
-     * @return mixed
      */
     public function handle(Data $data, Closure $next): mixed
     {
@@ -44,8 +39,8 @@ class EnsureFromTargetsExist
         // the migration target exists in the manifest or it already exists in the database.
         foreach ($data->declarations as $declaration) {
             if ($declaration->from
-                && !$data->declarations->has($declaration->from)
-                && !$data->metadata->has($declaration->from)) {
+                && ! $data->declarations->has($declaration->from)
+                && ! $data->metadata->has($declaration->from)) {
                 $absent[] = $declaration->from;
             }
         }

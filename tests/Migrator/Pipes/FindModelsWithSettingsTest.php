@@ -5,12 +5,10 @@ namespace Tests\Migrator\Pipes;
 use App\Models\Foo;
 use App\Quz;
 use App\UsesTraitOfTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Nabcellent\Laraconfig\Migrator\Data;
 use Nabcellent\Laraconfig\Migrator\Pipes\FindModelsWithSettings;
 use Tests\BaseTestCase;
-
 
 class FindModelsWithSettingsTest extends BaseTestCase
 {
@@ -21,7 +19,7 @@ class FindModelsWithSettingsTest extends BaseTestCase
 
         parent::setUp();
 
-        $this->filesystem = new Filesystem();
+        $this->filesystem = new Filesystem;
 
         $this->filesystem->ensureDirectoryExists($this->app->path('Models'));
 
@@ -115,7 +113,7 @@ CONTENT
         }
 
         $pipe = new FindModelsWithSettings($this->app, $this->filesystem);
-        $data = new Data();
+        $data = new Data;
 
         $result = $pipe->handle($data, fn ($data) => $data);
 
@@ -189,7 +187,7 @@ CONTENT
         require_once $this->app->path('Models/NormalClass.php');
 
         $pipe = new FindModelsWithSettings($this->app, $this->filesystem);
-        $data = new Data();
+        $data = new Data;
 
         $result = $pipe->handle($data, fn ($data) => $data);
 
