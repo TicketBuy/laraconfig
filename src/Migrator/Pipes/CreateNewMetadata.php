@@ -170,7 +170,7 @@ class CreateNewMetadata
         $affected = 0;
 
         /** @var Setting $setting */
-        foreach (Setting::query()->where('metadata_id', $old->getKey())->lazyById() as $setting) {
+        foreach (Setting::query()->where('metadata_id', $old->getKey())->lazyById(column: 'user_settings_metadata.id') as $setting) {
             Setting::query()
                 ->insert([
                     'metadata_id' => $new->getKey(),

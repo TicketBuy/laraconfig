@@ -100,7 +100,7 @@ class MorphManySettings extends MorphMany
         // Add the collection to the relation, avoiding retrieving them again later.
         $this->getParent()->setRelation('settings', $settings = new SettingsCollection);
 
-        foreach (Metadata::query()->lazyById(column: 'id') as $metadatum) {
+        foreach (Metadata::query()->lazyById(column: 'user_settings_metadata.id') as $metadatum) {
             $setting = $query->make()->forceFill([
                 'metadata_id' => $metadatum->getKey(),
                 'value' => $metadatum->default,
